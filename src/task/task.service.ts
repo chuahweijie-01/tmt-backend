@@ -6,7 +6,6 @@ import { ITask } from './interfaces/task.interface';
 
 @Injectable()
 export class TaskService {
-
   data: ITask[] = mockTasks as ITask[];
 
   create(createTaskDto: CreateTaskDto) {
@@ -28,7 +27,7 @@ export class TaskService {
   }
 
   update(id: number, updateTaskDto: UpdateTaskDto): ITask[] {
-    const taskIndex = this.data.findIndex(task => task.id === id.toString());
+    const taskIndex = this.data.findIndex((task) => task.id === id.toString());
     if (taskIndex > -1) {
       const updatedTask = {
         ...this.data[taskIndex],
@@ -42,7 +41,7 @@ export class TaskService {
   }
 
   remove(id: number) {
-    const taskIndex = this.data.findIndex(task => task.id === id.toString());
+    const taskIndex = this.data.findIndex((task) => task.id === id.toString());
     if (taskIndex > -1) {
       this.data.splice(taskIndex, 1);
     }

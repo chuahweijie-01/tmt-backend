@@ -5,11 +5,8 @@ import { TaskModule } from './task/task.module';
 import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot(),
-    TaskModule
-  ],
+  imports: [ConfigModule.forRoot(), TaskModule],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}
