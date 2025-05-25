@@ -1,0 +1,146 @@
+[
+    {
+        "id": "1",
+        "title": "Buy groceries",
+        "description": "Milk, Bread, Eggs, and Vegetables",
+        "isCompleted": false,
+        "isPriority": true,
+        "createdDate": "2025-05-18",
+        "deadlineDate": "2025-05-25"
+    },
+    {
+        "id": "2",
+        "title": "Submit tax documents",
+        "description": "Upload tax forms to the company portal",
+        "isCompleted": true,
+        "isPriority": true,
+        "createdDate": "2025-05-20",
+        "deadlineDate": "2025-05-25"
+    },
+    {
+        "id": "3",
+        "title": "Book dentist appointment",
+        "description": "Call Dr. Smith’s office for a checkup",
+        "isCompleted": false,
+        "isPriority": false,
+        "createdDate": "2025-05-15",
+        "deadlineDate": "2025-05-25"
+    },
+    {
+        "id": "4",
+        "title": "Team meeting",
+        "description": "Weekly sync with the product team",
+        "isCompleted": true,
+        "isPriority": false,
+        "createdDate": "2025-05-17",
+        "deadlineDate": "2025-05-17"
+    },
+    {
+        "id": "5",
+        "title": "Plan weekend trip",
+        "description": "Research places to visit and book hotel. Remember to book and get a better review.",
+        "isCompleted": true,
+        "isPriority": true,
+        "createdDate": "2025-05-19",
+        "deadlineDate": "2025-05-23"
+    },
+    {
+        "id": "6",
+        "title": "Finish React tutorial",
+        "description": "Complete the advanced hooks section",
+        "isCompleted": false,
+        "isPriority": false,
+        "createdDate": "2025-05-13",
+        "deadlineDate": "2025-05-27"
+    },
+    {
+        "id": "7",
+        "title": "Renew gym membership",
+        "description": "Check for discounts and renew online",
+        "isCompleted": true,
+        "isPriority": false,
+        "createdDate": "2025-05-10",
+        "deadlineDate": "2025-05-15"
+    },
+    {
+        "id": "8",
+        "title": "Fix bug in dashboard",
+        "description": "Resolve loading issue in user stats widget",
+        "isCompleted": true,
+        "isPriority": true,
+        "createdDate": "2025-05-16",
+        "deadlineDate": "2025-05-22"
+    },
+    {
+        "id": "9",
+        "title": "Send birthday gift",
+        "description": "Order a present for mom's birthday",
+        "isCompleted": false,
+        "isPriority": true,
+        "createdDate": "2025-05-12",
+        "deadlineDate": "2025-05-25"
+    },
+    {
+        "id": "10",
+        "title": "Organize workspace",
+        "description": "Clean desk and sort cables",
+        "isCompleted": true,
+        "isPriority": false,
+        "createdDate": "2025-05-11",
+        "deadlineDate": "2025-05-14"
+    },
+    {
+        "id": "11",
+        "title": "Write blog post",
+        "description": "Draft and publish article on productivity tips",
+        "isCompleted": true,
+        "isPriority": true,
+        "createdDate": "2025-05-20",
+        "deadlineDate": "2025-05-24"
+    },
+    {
+        "id": "12",
+        "title": "Call insurance company",
+        "description": "Clarify recent billing statement",
+        "isCompleted": false,
+        "isPriority": false,
+        "createdDate": "2025-05-20",
+        "deadlineDate": "2025-05-26"
+    },
+    {
+        "id": "13",
+        "title": "Update LinkedIn profile",
+        "description": "Add new skills and recent project",
+        "isCompleted": false,
+        "isPriority": false,
+        "createdDate": "2025-05-20",
+        "deadlineDate": "2025-05-30"
+    },
+    {
+        "id": "14",
+        "title": "Review pull requests",
+        "description": "Check and approve team's latest code submissions",
+        "isCompleted": true,
+        "isPriority": true,
+        "createdDate": "2025-05-20",
+        "deadlineDate": "2025-05-21"
+    },
+    {
+        "id": "15",
+        "title": "Backup laptop data",
+        "description": "Use external drive and cloud storage",
+        "isCompleted": false,
+        "isPriority": false,
+        "createdDate": "2025-05-20",
+        "deadlineDate": "2025-05-28"
+    },
+    {
+        "id": "16",
+        "title": "Prepare presentation",
+        "description": "Slides for upcoming strategy meeting",
+        "isCompleted": true,
+        "isPriority": true,
+        "createdDate": "2025-05-20",
+        "deadlineDate": "2025-05-23"
+    }
+]
