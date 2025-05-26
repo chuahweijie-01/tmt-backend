@@ -10,7 +10,7 @@ export class TaskService {
 
   create(createTaskDto: CreateTaskDto) {
     const newTask: ITask = {
-      id: (this.data.length + 1).toString(),
+      id: Date.now().toString(),
       title: createTaskDto.title,
       description: createTaskDto.description,
       isCompleted: false,
