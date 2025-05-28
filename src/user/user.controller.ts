@@ -12,8 +12,7 @@ export class UserController {
     @Body() createUserDto: CreateUserDto,
   ): Promise<CreateUserResponse> {
     const user = await this.userService.create(createUserDto);
-    if (!user) throw new Error('Account creation failed');
-
+    if (!user) throw new Error('Account creation failed.');
     return { username: user.username };
   }
 

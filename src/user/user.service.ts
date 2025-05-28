@@ -13,6 +13,10 @@ export class UserService {
   ) {}
 
   async create(userData: CreateUserDto): Promise<BaseUserDocument> {
+    const existingUser = await this.findOneByEmail(userData.email);
+    if (existingUser) {
+      throw new Error('Account exist.');
+    }
     const { password, ...userDetails } = userData;
     const salt = await bcrypt.genSalt(10);
     const updatedPasssword = await bcrypt.hash(password, salt);
