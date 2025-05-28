@@ -28,6 +28,7 @@ export class AuthController {
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'none',
       maxAge: 3600000,
+      path: '/'
     });
 
     const response: LoginUserResponse = {
