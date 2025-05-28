@@ -1,11 +1,14 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import * as cors from 'cors';
 import { NextFunction } from 'express';
+import { Application as ExpressApplication } from 'express';
 import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  const expressApp = app.getHttpAdapter().getInstance() as ExpressApplication;
+  expressApp.set('trust proxy', 1);
 
   // This middleware logs the request method and URL
   app.use((req: Request, res: Response, next: NextFunction) => {
@@ -15,13 +18,11 @@ async function bootstrap() {
 
   const origin = process.env.CORS_ORIGIN?.split(',') || '*';
 
-  app.use(
-    cors({
-      origin: origin,
-      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-      credentials: true,
-    }),
-  );
+  app.enableCors({
+    origin,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    credentials: true,
+  });
 
   app.use(cookieParser());
 

@@ -22,6 +22,7 @@ export class AuthController {
     const user = await this.authService.validateUser(body);
     if (!user) throw new UnauthorizedException();
     const token = this.authService.login(user);
+    console.log('NODE_ENV ' + process.env.NODE_ENV);
     res.cookie('token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
