@@ -17,6 +17,12 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "paths": {
+      "@common/*": ["src/common/*"],
+      "@auth/*": ["src/auth/*"],
+      "@task/*": ["src/task/*"],
+      "@user/*": ["src/user/*"]
+    },
   }
 }

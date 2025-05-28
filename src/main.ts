@@ -2,24 +2,18 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as cors from 'cors';
 import { NextFunction } from 'express';
+import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  // This middleware logs the request method and URL
   app.use((req: Request, res: Response, next: NextFunction) => {
     console.log(`[${req.method}] ${req.url}`);
     next();
   });
 
   const origin = process.env.CORS_ORIGIN?.split(',') || '*';
-
-  if (origin === '*') {
-    console.warn(
-      'CORS is set to allow all origins. This may expose your API to security risks.',
-    );
-  } else {
-    console.log(`CORS is set to allow origins: ${origin}`);
-  }
 
   app.use(
     cors({
@@ -28,6 +22,8 @@ async function bootstrap() {
       credentials: true,
     }),
   );
+
+  app.use(cookieParser());
 
   await app.listen(process.env.PORT ?? 3001);
 }

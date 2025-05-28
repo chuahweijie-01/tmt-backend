@@ -2,14 +2,14 @@ import { Injectable } from '@nestjs/common';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import * as mockTasks from '../assets/mock/task.json';
-import { ITask } from './interfaces/task.interface';
+import { Task } from './types/task';
 
 @Injectable()
 export class TaskService {
-  data: ITask[] = mockTasks as ITask[];
+  data: Task[] = mockTasks as Task[];
 
   create(createTaskDto: CreateTaskDto) {
-    const newTask: ITask = {
+    const newTask: Task = {
       id: Date.now().toString(),
       title: createTaskDto.title,
       description: createTaskDto.description,
@@ -22,11 +22,11 @@ export class TaskService {
     return this.data;
   }
 
-  findAll(): ITask[] {
+  findAll(): Task[] {
     return this.data;
   }
 
-  update(id: number, updateTaskDto: UpdateTaskDto): ITask[] {
+  update(id: number, updateTaskDto: UpdateTaskDto): Task[] {
     const taskIndex = this.data.findIndex((task) => task.id === id.toString());
     if (taskIndex > -1) {
       const updatedTask = {
