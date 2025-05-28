@@ -1,31 +1,36 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { NextFunction } from 'express';
-import { Application as ExpressApplication } from 'express';
+import * as cors from 'cors';
 import * as cookieParser from 'cookie-parser';
+import { NextFunction, Request, Response } from 'express';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  const expressApp = app.getHttpAdapter().getInstance() as ExpressApplication;
-  expressApp.set('trust proxy', 1);
+  app.use(cookieParser());
 
-  // This middleware logs the request method and URL
+  const allowedOrigin = 'https://task-management-tool-tau.vercel.app';
+
+  app.use(
+    cors({
+      origin: function (origin, callback) {
+        console.log('Incoming Origin:', origin);
+        if (origin === allowedOrigin || !origin) {
+          callback(null, true);
+        } else {
+          callback(new Error(`Origin ${origin} not allowed by CORS`));
+        }
+      },
+      credentials: true,
+    }),
+  );
+
+  // Middleware to log cookies on each request
   app.use((req: Request, res: Response, next: NextFunction) => {
-    console.log(`[${req.method}] ${req.url}`);
+    console.log('Cookies on request:', req.cookies);
     next();
   });
 
-  const origin = process.env.CORS_ORIGIN?.split(',') || '*';
-
-  app.enableCors({
-    origin,
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    credentials: true,
-  });
-
-  app.use(cookieParser());
-
-  await app.listen(process.env.PORT ?? 3001);
+  await app.listen(process.env.PORT || 3001);
 }
 void bootstrap();
