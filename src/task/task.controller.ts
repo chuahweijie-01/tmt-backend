@@ -6,23 +6,26 @@ import {
   Param,
   Delete,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { TaskService } from './task.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
-import { ITask } from './interfaces/task.interface';
+import { Task } from './types/task';
+import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
 
 @Controller('task')
 export class TaskController {
   constructor(private readonly taskService: TaskService) {}
 
   @Post()
-  create(@Body() createTaskDto: CreateTaskDto): ITask[] {
+  create(@Body() createTaskDto: CreateTaskDto): Task[] {
     return this.taskService.create(createTaskDto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get()
-  findAll(): ITask[] {
+  findAll(): Task[] {
     return this.taskService.findAll();
   }
 
@@ -30,7 +33,7 @@ export class TaskController {
   update(
     @Param('id') id: string,
     @Body() updateTaskDto: UpdateTaskDto,
-  ): ITask[] {
+  ): Task[] {
     return this.taskService.update(+id, updateTaskDto);
   }
 
