@@ -15,6 +15,12 @@ async function bootstrap() {
 
   const origin = process.env.CORS_ORIGIN?.split(',') || '*';
 
+  if (origin === '*') {
+    console.warn('CORS is set to allow all origins. This may expose your API to security risks.');
+  } else {
+    console.log(`CORS is set to allow origins: ${origin}`);
+  }
+
   app.use(
     cors({
       origin: origin,
