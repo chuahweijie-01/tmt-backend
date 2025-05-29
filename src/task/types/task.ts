@@ -1,4 +1,4 @@
-export interface Task {
+export interface RenameTask {
   id?: string;
   title: string;
   description?: string;

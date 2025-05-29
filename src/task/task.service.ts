@@ -1,50 +1,67 @@
 import { Injectable } from '@nestjs/common';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
-import * as mockTasks from '../assets/mock/task.json';
-import { Task } from './types/task';
+import { InjectModel } from '@nestjs/mongoose';
+import { BaseTaskDocument, Task } from './schemas/task.schema';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class TaskService {
-  data: Task[] = mockTasks as Task[];
+  constructor(
+    @InjectModel(Task.name) private readonly taskModel: Model<BaseTaskDocument>,
+  ) {}
 
-  create(createTaskDto: CreateTaskDto) {
-    const newTask: Task = {
-      id: Date.now().toString(),
-      title: createTaskDto.title,
-      description: createTaskDto.description,
+  async create(
+    createTaskDto: CreateTaskDto,
+    userId: string,
+  ): Promise<BaseTaskDocument> {
+    const taskData = {
+      ...createTaskDto,
       isCompleted: false,
-      isPriority: createTaskDto.isPriority,
-      createdDate: new Date().toISOString().split('T')[0],
-      deadlineDate: createTaskDto.deadlineDate,
+      userId,
     };
-    this.data.push(newTask);
-    return this.data;
+    const createdTask = new this.taskModel(taskData);
+    return createdTask.save();
   }
 
-  findAll(): Task[] {
-    return this.data;
+  async updateTaskStatus(
+    taskId: string,
+    isCompleted: boolean,
+  ): Promise<BaseTaskDocument | null> {
+    return this.taskModel
+      .findByIdAndUpdate(
+        taskId,
+        { $set: { isCompleted } },
+        { new: true, lean: true },
+      )
+      .exec();
   }
 
-  update(id: number, updateTaskDto: UpdateTaskDto): Task[] {
-    const taskIndex = this.data.findIndex((task) => task.id === id.toString());
-    if (taskIndex > -1) {
-      const updatedTask = {
-        ...this.data[taskIndex],
-        ...updateTaskDto,
-        updatedDate: new Date().toISOString().split('T')[0],
-      };
-      this.data[taskIndex] = updatedTask;
-    }
-
-    return this.data;
+  async findOne(
+    taskId: string,
+    userId: string,
+  ): Promise<BaseTaskDocument | null> {
+    return this.taskModel.findOne({ _id: taskId, userId }).lean().exec();
   }
 
-  remove(id: number) {
-    const taskIndex = this.data.findIndex((task) => task.id === id.toString());
-    if (taskIndex > -1) {
-      this.data.splice(taskIndex, 1);
-    }
-    return this.data;
+  async findAll(userId: string): Promise<BaseTaskDocument[]> {
+    return this.taskModel.find({ userId }).lean().exec();
+  }
+
+  async update(
+    taskId: string,
+    updateTaskDto: UpdateTaskDto,
+  ): Promise<BaseTaskDocument | null> {
+    return this.taskModel
+      .findOneAndUpdate(
+        { _id: taskId },
+        { $set: updateTaskDto },
+        { new: true, lean: true },
+      )
+      .exec();
+  }
+
+  async remove(taskId: string): Promise<BaseTaskDocument | null> {
+    return this.taskModel.findByIdAndDelete(taskId).lean().exec();
   }
 }
